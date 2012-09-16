@@ -10,7 +10,6 @@ VYATTA_INTERFACE_PM_PATCH = Interface.pm.2012091101.patch
 .PHONY: all
 all : 
 	make -C vxlan 
-	make -C vxlan install
 
 install : $(PROGNAME)
 	make -C vxlan 

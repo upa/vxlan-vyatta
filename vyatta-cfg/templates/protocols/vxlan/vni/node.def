@@ -1,5 +1,5 @@
 multi:
-priority: 820
+priority: 420
 type: txt
 help: Virtual Network Identifier
 val_help: <HEX>; HEX 3 chars VNI
@@ -9,6 +9,11 @@ syntax:expression: pattern $VAR(@) "^([0-9]|[a-f]|[A-F]){1,3}$" \
 
 
 
-create: sudo /usr/local/sbin/vxlanctl create $VAR(@)
-delete: sudo /usr/local/sbin/vxlanctl destroy $VAR(@)
+create: if [ -e /var/run/vxlan ]; then
+		sudo /usr/local/sbin/vxlanctl create $VAR(@)
+	fi
+
+delete: if [ -e /var/run/vxlan ]; then
+		sudo /usr/local/sbin/vxlanctl destroy $VAR(@)
+	fi
 

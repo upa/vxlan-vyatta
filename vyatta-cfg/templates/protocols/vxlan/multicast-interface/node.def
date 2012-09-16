@@ -1,4 +1,4 @@
-priority: 710
+priority: 410
 type: txt
 help: Ethernet interface name
 allowed: /opt/vyatta/sbin/vyatta-interfaces.pl --show=ethernet
@@ -13,4 +13,7 @@ syntax:expression: exec \
         exit 1; \
     fi"
 
-update: sudo /usr/local/sbin/vxlanctl mcast_iface $VAR(@)
+
+update: if [ -e /var/run/vxlan ]; then 
+		sudo /usr/local/sbin/vxlanctl mcast_iface $VAR(@)
+	fi

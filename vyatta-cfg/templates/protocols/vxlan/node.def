@@ -1,4 +1,4 @@
-priority: 800
+priority: 400
 help: Virtual eXtensible LAN (VXLAN) parameters
 
 create: sudo /etc/init.d/vxlan start

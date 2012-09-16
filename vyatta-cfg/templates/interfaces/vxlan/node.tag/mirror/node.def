@@ -1,0 +1,18 @@
+type: txt
+help: Incoming packet mirroring destination
+allowed: ${vyatta_sbindir}/vyatta-interfaces.pl --show=ethernet
+
+syntax:expression: $VAR(@) != $VAR(../@) ;\
+	 "interface $VAR(../@): mirroring to same interface not allowed"
+val_help: Interface for packet mirroring
+
+commit:expression: $VAR(../redirect) == ""; \
+		   "interface $VAR(../@) : can not do both redirect and mirror"
+
+commit:expression: $VAR(../traffic-policy/in) == ""; \
+		   "interface $VAR(../@) : can not use ingress policy and mirror"
+
+commit:expression: exec "/opt/vyatta/sbin/vyatta-interfaces.pl --dev $VAR(@) --check=all"
+
+update: /opt/vyatta/sbin/vyatta-qos.pl --update-action $VAR(../@)
+delete: /opt/vyatta/sbin/vyatta-qos.pl --delete-action $VAR(../@)

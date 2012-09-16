@@ -1,0 +1,3 @@
+help: Show physical device information for specified ethernet interface
+allowed: ""
+run: /sbin/ethtool "$4"; /sbin/ethtool -i "$4"

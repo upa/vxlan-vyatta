@@ -1,0 +1,3 @@
+help: Show physical device statistics for specified ethernet interface
+allowed: ""
+run: sudo /sbin/ethtool -S "$4"

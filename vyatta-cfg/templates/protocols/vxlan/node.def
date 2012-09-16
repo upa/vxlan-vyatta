@@ -1,0 +1,5 @@
+priority: 800
+help: Virtual eXtensible LAN (VXLAN) parameters
+
+create: sudo /etc/init.d/vxlan start
+delete: sudo /etc/init.d/vxlan stop

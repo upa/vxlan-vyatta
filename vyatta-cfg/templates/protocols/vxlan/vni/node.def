@@ -1,0 +1,14 @@
+multi:
+priority: 820
+type: txt
+help: Virtual Network Identifier
+val_help: <HEX>; HEX 3 chars VNI
+
+syntax:expression: pattern $VAR(@) "^([0-9]|[a-f]|[A-F]){1,3}$" \
+			; "$VAR(@): not a valid VNI"
+
+
+
+create: sudo /usr/local/sbin/vxlanctl create $VAR(@)
+delete: sudo /usr/local/sbin/vxlanctl destroy $VAR(@)
+

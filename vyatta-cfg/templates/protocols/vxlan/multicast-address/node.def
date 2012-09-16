@@ -1,0 +1,10 @@
+priority: 710
+type: txt
+help: VXLAN Multicast Address
+
+val_help: ipv4; IPv4 multicast address
+
+syntax:expression: exec "/opt/vyatta/sbin/valid_address $VAR(@)/32"
+
+update:	sudo /usr/local/sbin/vxlanctl mcast_addr $VAR(@)
+

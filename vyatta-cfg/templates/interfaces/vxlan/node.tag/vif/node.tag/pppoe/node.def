@@ -1,0 +1,88 @@
+#
+# Configuration template for interface/ethernet/node.tag/pppoe
+#
+#
+# Define a PPPOE interface.  The value of this node is the PPPOE unit
+# number.  This number must be globally unique among all PPPOE units.
+#
+
+tag:
+
+type: u32
+
+help: PPPOE unit number
+
+val_help: 0-15; Point-to-Point Protocol over Ethernet (PPPOE) unit number
+
+syntax:expression:  ((($VAR(@) >= 0) && ($VAR(@) <= 15)) ; \
+        "Only unit number must be between 0 and 15") && \
+        ( exec "NOT_OURS=`grep -s ^pty /etc/ppp/peers/pppoe$VAR(@) | grep -v -c $VAR(../@)` ; \
+                if [ $NOT_OURS -eq 0 ]; then \
+                        exit 0 ; \
+                else \
+                        exit 1 ; \
+                fi " ; \
+        "Unit number must be unique. Units already in use are: $VAR(../@@/pppoe/@@)" )
+
+
+
+#
+# At create time, we initialize a new PPP provider
+# configuration file with default values.  Other parameters will be inserted by
+# the templates for those parameters.
+#
+create:	
+	ifname=pppoe$VAR(@)
+	logfile=/var/log/vyatta/ppp_${ifname}.log
+	sudo touch $logfile
+	sudo chgrp adm $logfile
+	sudo chmod 664 $logfile
+	echo "`date`: PPP interface $ifname created" >> $logfile
+
+	sudo rm -f /etc/ppp/peers/pppoe$VAR(@)
+	sudo cp /opt/vyatta/etc/pppoe-provider-template \
+	   /etc/ppp/peers/pppoe$VAR(@) 
+	sudo sh -c "echo pty \\\"/usr/sbin/pppoe -m 1412 -I $VAR(../../@).$VAR(../@)\\\" >> \
+	     /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo persist >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo mtu 1492  >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo mru 1492  >> /etc/ppp/peers/pppoe$VAR(@)"
+        sudo sh -c "echo defaultroute  >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo usepeerdns  >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo ipparam pppoe$VAR(@) >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo debug  >> /etc/ppp/peers/pppoe$VAR(@)"
+	sudo sh -c "echo logfile $logfile  >> /etc/ppp/peers/pppoe$VAR(@)"
+#
+# Delete means that this node and the tree below it has been deleted.
+# We can delete the PPP provider configuration file.  The running PPPOE
+# Daemon will be killed at "end:"
+# 
+delete:	
+	ifname=pppoe$VAR(@)
+	logfile=/var/log/vyatta/ppp_${ifname}.log
+	echo "`date`: PPP interface $ifname deleted" >> $logfile
+	sudo rm -f /etc/ppp/peers/pppoe$VAR(@)
+
+#
+# Three cases are handled here:
+#  1) A new PPPOE configuration node has just been added.  Parameters may or
+#     may not have also been added.
+#  2) Some configuration parameters of a previously existing PPPOE node
+#     have been changed.
+#  3) A previously existing PPPOE configuration node has been deleted.
+# 
+# In case (1) we need to start the daemon for the first time.
+# In case (2) we need to kill and restart the daemon.
+# In case (3) we need to kill the daemon.
+#
+end:	
+	ifname=pppoe$VAR(@)
+	logfile=/var/log/vyatta/ppp_${ifname}.log
+	echo "`date`: Stopping PPP daemon for $ifname" >> $logfile
+
+	sudo poff pppoe$VAR(@) | logger -p debug -t pppoe$VAR(@)-template
+	if [ -e /etc/ppp/peers/pppoe$VAR(@) ]; then
+		echo "`date`: Starting PPP daemon for $ifname" >> $logfile
+                ( umask 0; sudo /usr/sbin/pppd call pppoe$VAR(@) > \
+		  	/tmp/pppoe$VAR(@).log 2>&1 & )
+	fi

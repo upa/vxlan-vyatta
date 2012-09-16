@@ -1,0 +1,16 @@
+#
+# Configuration template for the .../pppoe/node.tag/idle-timeout parameter
+#
+# This parameter sets the time in seconds after which an idle
+# connection will be closed. Disconnection of idle connections will not
+# be performed if this parameter is not set.
+#
+
+type: u32
+
+help: Delay (in seconds) before disconnecting idle session
+
+update:	sudo sed -i '/^idle/d' /etc/ppp/peers/pppoe$VAR(../@)
+        sudo sh -c "echo idle $VAR(@) >> /etc/ppp/peers/pppoe$VAR(../@)"
+
+delete:	sudo sed -i '/^idle/d' /etc/ppp/peers/pppoe$VAR(../@)

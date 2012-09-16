@@ -1,0 +1,5 @@
+type: txt
+help: Ingress traffic policy for interface
+allowed: /opt/vyatta/sbin/vyatta-qos.pl --list-policy in
+update: /opt/vyatta/sbin/vyatta-qos.pl --update-interface $VAR(../../@) in $VAR(@)
+delete: /opt/vyatta/sbin/vyatta-qos.pl --delete-interface $VAR(../../@) in

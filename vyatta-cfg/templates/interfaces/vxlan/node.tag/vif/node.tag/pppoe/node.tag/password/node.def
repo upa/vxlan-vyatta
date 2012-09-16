@@ -1,0 +1,17 @@
+#
+# Configuration template for the .../pppoe/node.tag/password parameter
+#
+# This parameter sets the user name that will be used to authenticate
+# this node to the remote node.  Authentication protocol (PAP or CHAP)
+# is determined by the remote node.  This username will be used with
+# either protocol.
+#
+
+type: txt
+
+help: Password for authenticating local machine to PPPOE server
+
+update:	sudo sed -i '/^password/d' /etc/ppp/peers/pppoe$VAR(../@)
+        sudo sh -c "echo password \\\"$VAR(@)\\\" >> /etc/ppp/peers/pppoe$VAR(../@)"
+
+delete:	sudo sed -i '/^password/d' /etc/ppp/peers/pppoe$VAR(../@)

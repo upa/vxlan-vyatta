@@ -1,0 +1,35 @@
+#
+# Configuration template for the .../pppoe/node.tag/name-server
+# parameter
+# 
+# 
+# This parameter has two possible values: "auto" and "none". If the
+# parameter value is "auto", or if the parameter itself does not
+# exist, then ppp will automatically add a default route pointing to
+# the endpoint of the link when the link comes up.  The default route
+# will only be added if no other default route already exists in the
+# system.  If the parameter value is "none", no default route will be
+# added.
+# 
+
+type: txt
+
+help: Enable/disable use of name server entries from peer
+
+val_help: auto; Use name server entries provided by peer
+val_help: none; Do not use name server entries provided by peer
+
+syntax:expression: $VAR(@) in "auto","none" ; "Must be either \"auto\" or \"none\""
+
+default: "auto"
+
+update:	sudo sed -i '/^usepeerdns/d' /etc/ppp/peers/pppoe$VAR(../@)
+	if [ "$VAR(@)" = "auto" ]; then
+	        sudo sh -c "echo usepeerdns >> /etc/ppp/peers/pppoe$VAR(../@)"
+	fi
+
+#
+# If this parameter is deleted, behave as if it were set to "auto"
+#
+delete:	sudo sed -i '/^usepeerdns/d' /etc/ppp/peers/pppoe$VAR(../@)
+	sudo sh -c "echo usepeerdns >> /etc/ppp/peers/pppoe$VAR(../@)"

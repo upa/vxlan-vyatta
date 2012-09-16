@@ -1,0 +1,16 @@
+priority: 710
+type: txt
+help: Ethernet interface name
+allowed: /opt/vyatta/sbin/vyatta-interfaces.pl --show=ethernet
+val_help: <ethN>; Ethernet interface name
+
+syntax:expression: pattern $VAR(@) "^eth[0-9]+$" \
+                   ; "interface ethernet $VAR(@): not a valid name"
+
+syntax:expression: exec \
+    "if [ ! -d /sys/class/net/$VAR(@) ]; then \
+        echo \"interface ethernet $VAR(@): does not exist\";
+        exit 1; \
+    fi"
+
+update: sudo /usr/local/sbin/vxlanctl mcast_iface $VAR(@)

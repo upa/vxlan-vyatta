@@ -1,0 +1,18 @@
+#
+# Configuration template for the .../pppoe/node.tag/access-concentrator
+# parameter.
+#
+# If set, only connect to access concentrator with this name.
+#
+
+type: txt
+
+help: Access concentrator name (only connect to this concentrator)
+
+syntax:expression: pattern $VAR(@) "^[a-zA-Z0-9]+$" ; "Access concentrator name must be composed of uppper and lower case letters or numbers only"
+
+update:	sudo sed -r -i 's/ -C [a-zA-Z0-9]+//' /etc/ppp/peers/pppoe$VAR(../@)
+	sudo sed -i 's+/usr/sbin/pppoe+/usr/sbin/pppoe -C $VAR(@)+' /etc/ppp/peers/pppoe$VAR(../@)
+
+delete:	sudo sed -r -i 's/ -C [a-zA-Z0-9]+//' /etc/ppp/peers/pppoe$VAR(../@)
+

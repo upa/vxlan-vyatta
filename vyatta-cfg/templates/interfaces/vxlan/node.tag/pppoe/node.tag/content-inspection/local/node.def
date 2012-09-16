@@ -1,0 +1,9 @@
+# Template generated at: Wed Jan 26 16:28:10 PST 2011
+
+help: Option to inspect packets destined for this router
+
+# in future, when ipv6 is enabled, message below will say either 
+# 'enable' or 'ipv6-enable' needs to be set
+commit:expression: $VAR(./enable) != "" || $VAR(./ipv6-enable) != ""; 
+	"Need to set 'enable' to inspect IPV4 traffic on $VAR(../../@)"
+

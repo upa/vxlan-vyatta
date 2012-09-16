@@ -1,0 +1,2 @@
+help: Show queue filters for a device
+run: ${vyatta_bindir}/vyatta-show-queue $4 filter

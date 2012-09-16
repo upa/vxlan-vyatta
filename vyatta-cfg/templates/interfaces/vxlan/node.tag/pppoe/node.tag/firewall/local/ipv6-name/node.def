@@ -1,0 +1,17 @@
+type: txt
+help: Local IPv6 firewall ruleset name for interface
+allowed: local -a params
+	eval "params=($(cli-shell-api listActiveNodes firewall ipv6-name))"
+	echo -n "${params[@]}"
+create: ifname=pppoe$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname local $VAR(@) ipv6-name
+
+update:	ifname=pppoe$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname local $VAR(@) ipv6-name
+
+
+delete:	ifname=pppoe$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		delete $ifname local $VAR(@) ipv6-name

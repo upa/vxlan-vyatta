@@ -1,0 +1,17 @@
+type: txt
+help: Inbound IPv6 firewall ruleset name for interface
+allowed: local -a params
+	eval "params=($(cli-shell-api listActiveNodes firewall ipv6-name))"
+	echo -n "${params[@]}"
+create: ifname=$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname in $VAR(@) ipv6-name
+
+update:	ifname=$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname in $VAR(@) ipv6-name
+
+
+delete:	ifname=$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		delete $ifname in $VAR(@) ipv6-name

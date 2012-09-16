@@ -1,0 +1,2 @@
+help: Show ethernet queue information
+run:  ${vyatta_bindir}/vyatta-show-queue $4.$6

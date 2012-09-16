@@ -1,0 +1,17 @@
+type: txt
+help: Inbound IPv4 firewall ruleset name for interface
+allowed: local -a params
+	eval "params=($(cli-shell-api listActiveNodes firewall name))"
+	echo -n "${params[@]}"
+create: ifname=$VAR(../../../../@).$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname in $VAR(@) name
+
+update:	ifname=$VAR(../../../../@).$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		update $ifname in $VAR(@) name
+
+
+delete:	ifname=$VAR(../../../../@).$VAR(../../../@)
+	sudo /opt/vyatta/sbin/vyatta-firewall.pl --update-interfaces \
+		delete $ifname in $VAR(@) name

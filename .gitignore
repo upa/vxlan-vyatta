@@ -8,4 +8,4 @@ m.sh
 missing
 vxland
 vxlanctl
-*.patch
+*.\.patch

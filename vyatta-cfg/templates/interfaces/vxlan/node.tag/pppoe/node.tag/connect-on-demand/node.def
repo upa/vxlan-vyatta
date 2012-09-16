@@ -1,0 +1,30 @@
+#
+# Configuration template for the .../pppoe/node.tag/connect-on-demand parameter
+# 
+# 
+# This parameter has no "value" associated with it. If the parameter
+# exists, then "connect on demand" mode is enabled.  The link will not
+# be brought up automatically at boot time, but but will be brought up
+# when IP traffic needs to be sent on the link.  If the link goes down
+# for any reason, it will be brought back up when traffic needs to be
+# sent.
+# 
+# If the parameter does not exist, then "connect on demand" mode will
+# be disabled.  In this mode, the link will be brought up
+# automatically at boot time.  If it goes down for any reason, the
+# system will attempt to bring it back up immediately.
+# 
+# This parameter is usually used in conjunction with the idle-timeout
+# parameter, which disconnects the link after some period of time
+# without traffic.  Can only be used if remote-address is also set.
+#
+
+help: Automatic establishment of PPPOE connection when traffic is sent
+
+update:	sudo sed -i '/^demand/d' /etc/ppp/peers/pppoe$VAR(../@)
+	sudo sed -i '/^persist/d' /etc/ppp/peers/pppoe$VAR(../@)
+        sudo sh -c "echo demand >> /etc/ppp/peers/pppoe$VAR(../@)"
+
+delete:	sudo sed -i '/^demand/d' /etc/ppp/peers/pppoe$VAR(../@)
+	sudo sed -i '/^persist/d' /etc/ppp/peers/pppoe$VAR(../@)
+        sudo sh -c "echo persist >> /etc/ppp/peers/pppoe$VAR(../@)"

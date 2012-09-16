@@ -1,0 +1,2 @@
+help: Show queue classes for a device
+run: ${vyatta_bindir}/vyatta-show-queue $4.$6 class

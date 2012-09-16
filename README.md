@@ -38,12 +38,12 @@ _protocols vxlan_ and _interface vxlan_ .
 
 At 1st, you shoud configure _multicast-address_ and
 _multicast-interface_ .  Default Multicast address is 239.0.0.1, and
-it does not select multicast interface if you don't specify the
+vxlan does not select multicast interface if you don't specify the
 _multicast-interface_. 
 
 	 vyatta@vyatta# set multicast-address 239.0.0.100
 	 [edit protocols vxlan]
-	 vyatta@vyatta# set multicast-interface eth0
+	 vyatta@vyatta# set multicast-interface eth1
 	 [edit protocols vxlan]
 	 vyatta@vyatta# show
 	 +multicast-address 239.0.0.1

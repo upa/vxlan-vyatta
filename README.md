@@ -16,7 +16,8 @@ installing this application.
 	 % cd vxlan-vyatta
 	 % make install
 
-*Fatal* vxlan-vyatta applies vxlan extention patch to 
+#### Fatal 
+vxlan-vyatta applies vxlan extention patch to 
 /opt/vyatta/share/perl5/Vyatta/Interface.pm . This patch will be removed 
 when you will uninstall vxlan-vyatta.
 	  

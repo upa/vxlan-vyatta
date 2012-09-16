@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-#include <uthash.h>
+#include "lib/uthash.h"
 
 #define VXLAN_PORT_BASE		60000
 #define VXLAN_CPORT		"60000"

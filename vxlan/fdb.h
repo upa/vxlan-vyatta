@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <netinet/in.h>
 #include <net/ethernet.h>
-#include <uthash.h>
+#include "lib/uthash.h"
 
 
 #define FDB_DEFAULT_CACHE_MAX_TTL 60

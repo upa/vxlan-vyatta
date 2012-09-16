@@ -72,7 +72,7 @@ _multicast-interface_.
 
 
 vxlan-vyatta creates tap interface that is named vxlan[VNI]. 
-AndyYou can use vxlan interface like ethernet interface.
+And You can use vxlan interface like ethernet interface.
 
 
 ToDo

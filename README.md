@@ -15,11 +15,15 @@ installing this application.
 	 % git clone git://github.com/upa/vxlan-vyatta.git
 	 % cd vxlan-vyatta
 	 % make install
+
+*Fatal* vxlan-vyatta applies vxlan extention patch to 
+/opt/vyatta/share/perl5/Vyatta/Interface.pm . This patch will be removed 
+when you will uninstall vxlan-vyatta.
 	  
 
 Uninstall
 ---------
-	 _make uninstall_
+	 % make uninstall
 
 
 How to use vxlan through Vyatta

@@ -8,7 +8,7 @@ http://github.com/upa/vxlan (vxlan implementation on linux Userland).
 
 Install
 -------
-vxlan-vyatta requires vyatta to install gcc, make and git before 
+vxlan-vyatta requires vyatta to be installed gcc, make and git before 
 installing this application.
 
 	 

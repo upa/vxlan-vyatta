@@ -5,7 +5,7 @@ VYATTA_CFG_INTERFACE = vyatta-cfg/templates/interfaces/vxlan
 VYATTA_CFG_PROTOCOL = vyatta-cfg/templates/protocols/vxlan
 VYATTA_DST = /opt/vyatta/share
 VYATTA_INTERFACE_PM = /opt/vyatta/share/perl5/Vyatta/Interface.pm
-VYATTA_INTERFACE_PM_PATCH = Interface.pm.2012091101.patch
+VYATTA_INTERFACE_PM_PATCH = Interface.pm.2012110301.patch
 
 .PHONY: all
 all : 

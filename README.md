@@ -6,6 +6,9 @@ vxlan through vyatta. This vxlan implementation is based on
 http://github.com/upa/vxlan (vxlan implementation on linux Userland).
 
 
+vxlan-vyatta can be used on VC6.4 oxnard.
+
+
 Install
 -------
 vxlan-vyatta requires vyatta to be installed gcc, make and git before 

@@ -6,7 +6,7 @@ vxlan through vyatta. This vxlan implementation is based on
 http://github.com/upa/vxlan (vxlan implementation on linux Userland).
 
 
-vxlan-vyatta can be used on VC6.4 oxnard.
+vxlan-vyatta can be used on VC6.4 oxnard and VC6.5 pacifica.
 
 
 Install
@@ -20,7 +20,7 @@ installing this application.
 	 % make install
 
 #### Fatal 
-vxlan-vyatta applies vxlan extention patch to 
+In VC6.4, vxlan-vyatta applies vxlan extention patch to 
 /opt/vyatta/share/perl5/Vyatta/Interface.pm . This patch will be removed 
 when you will uninstall vxlan-vyatta.
 	  
